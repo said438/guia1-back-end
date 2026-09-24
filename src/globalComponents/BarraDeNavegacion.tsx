@@ -44,6 +44,10 @@ export function BarraDeNavegacion(){
       key: "proveedor",
       label: <Link to="/proveedor"> Proveedor </Link>,
     },
+    {
+      key: "stock-producto-deposito",
+      label: <Link to="/stock-producto-deposito"> Stock de productos </Link>,
+    },
   ];
 
   return <Menu mode="horizontal" items={items} />;

@@ -11,6 +11,7 @@ import ClientePage from './modules/Clientes/view/usuarioPage';
 import DepositoPage from './modules/Depositos/view/depositoPage';
 import ProductoPage from './modules/Productos/view/productoPage';
 import ProveedorPage from './modules/Proveedores/view/proveedorPage';
+import StockProductoDepositoPage from './modules/StockProductoDeposito/view/stockProductoDepositoPage';
 
 export default function AppRoutes() {
   return (
@@ -28,6 +29,7 @@ export default function AppRoutes() {
         <Route path="/depositos" element={<DepositoPage />} />
         <Route path="/productos" element={<ProductoPage />} />
         <Route path="/proveedor" element={<ProveedorPage />} />
+        <Route path="/stock-producto-deposito" element={<StockProductoDepositoPage />} />
       </Routes>
     </>
     
