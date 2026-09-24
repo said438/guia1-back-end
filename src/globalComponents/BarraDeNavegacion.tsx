@@ -36,6 +36,10 @@ export function BarraDeNavegacion(){
       key: "depositos",
       label: <Link to="/depositos"> Depositos </Link>,
     },
+    {
+      key: "productos",
+      label: <Link to="/productos"> Productos </Link>,
+    },
   ];
 
   return <Menu mode="horizontal" items={items} />;

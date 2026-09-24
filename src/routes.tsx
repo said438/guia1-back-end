@@ -9,6 +9,7 @@ import SucursalPage from './modules/Sucursal/view/sucursalPage';
 import UsuarioPage from './modules/Usuario/view/usuarioPage';
 import ClientePage from './modules/Clientes/view/usuarioPage';
 import DepositoPage from './modules/Depositos/view/depositoPage';
+import ProductoPage from './modules/Productos/view/productoPage';
 
 export default function AppRoutes() {
   return (
@@ -24,6 +25,7 @@ export default function AppRoutes() {
         <Route path="/usuarios" element={<UsuarioPage />} />
         <Route path="/clientes" element={<ClientePage />} />
         <Route path="/depositos" element={<DepositoPage />} />
+        <Route path="/productos" element={<ProductoPage />} />
       </Routes>
     </>
     
