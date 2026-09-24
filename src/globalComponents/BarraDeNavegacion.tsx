@@ -28,6 +28,14 @@ export function BarraDeNavegacion(){
       key: "usuarios",
       label: <Link to="/usuarios"> Usuarios </Link>,
     },
+    {
+      key: "clientes",
+      label: <Link to="/clientes"> Clientes </Link>,
+    },
+    {
+      key: "depositos",
+      label: <Link to="/depositos"> Depositos </Link>,
+    },
   ];
 
   return <Menu mode="horizontal" items={items} />;
