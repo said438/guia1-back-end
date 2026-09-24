@@ -1,12 +1,19 @@
 import { useState } from "react";
-import type { Producto } from "../types";
-import { Button, Form, InputNumber, Modal } from "antd";
+import type { Proveedor } from "../types";
+import {
+  Button,
+  Form,
+  InputNumber,
+  Modal,
+} from "antd";
 
 interface Props {
-  onEliminarProducto: (producto: Producto) => void;
+  onEliminarProveedor: (proveedor: Proveedor) => void;
 }
 
-export function BotonEliminar({ onEliminarProducto }: Props) {
+export function BotonEliminar({
+  onEliminarProveedor,
+}: Props) {
   const [isModalAbierto, setIsModalAbierto] = useState(false);
   const [form] = Form.useForm();
 
@@ -18,8 +25,8 @@ export function BotonEliminar({ onEliminarProducto }: Props) {
     setIsModalAbierto(false);
   }
 
-  async function handleEliminarProducto(producto: Producto) {
-    await onEliminarProducto(producto);
+  async function handleEliminarProveedor(proveedor: Proveedor) {
+    await onEliminarProveedor(proveedor);
     handleOcultarModal();
   }
 
@@ -30,13 +37,13 @@ export function BotonEliminar({ onEliminarProducto }: Props) {
       </Button>
 
       <Modal
-        title="Eliminar Producto"
+        title="Eliminar Proveedor"
         okText="Eliminar"
         cancelText="Cancelar"
         open={isModalAbierto}
         onOk={async () => {
           const camposValidados = await form.validateFields();
-          await handleEliminarProducto(camposValidados);
+          await handleEliminarProveedor(camposValidados);
         }}
         onCancel={handleOcultarModal}
       >
@@ -68,4 +75,3 @@ export function BotonEliminar({ onEliminarProducto }: Props) {
     </>
   );
 }
-

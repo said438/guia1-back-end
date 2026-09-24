@@ -1,28 +1,27 @@
 import { useState, useEffect } from "react";
 import {
-  crearProductoService,
-  eliminarProductoService,
-  modificarProductoService,
-  obtenerProductosService,
-} from "../Services/productoService.tsx";
+  crearProveedorService,
+  eliminarProveedorService,
+  modificarProveedorService,
+  obtenerProveedoresService,
+} from "../Services/proveedorService.tsx";
 
 import type {
-  CreateProducto,
-  Producto,
-  UpdateProducto,
+  CreateProveedor,
+  Proveedor,
 } from "../types.ts";
 
 import axios from "axios";
 
-export const useProducto = () => {
-  const [productos, setProductos] = useState<Producto[]>([]);
+export const useProveedor = () => {
+  const [proveedores, setProveedores] = useState<Proveedor[]>([]);
   const [isCargandoDatos, setIsCargandoDatos] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   async function cargarDatos() {
     try {
-      const datos = await obtenerProductosService();
-      setProductos(datos);
+      const datos = await obtenerProveedoresService();
+      setProveedores(datos);
     } catch (error) {
       console.log("Ocurrió un error al cargar los datos.");
 
@@ -40,14 +39,14 @@ export const useProducto = () => {
     }
   }
 
-  async function agregarProducto(
-    nuevoProducto: CreateProducto
+  async function agregarProveedor(
+    nuevoProveedor: CreateProveedor
   ) {
     try {
-      await crearProductoService(nuevoProducto);
+      await crearProveedorService(nuevoProveedor);
       await cargarDatos();
     } catch (error) {
-      console.log("Ocurrió un error al agregar un producto.");
+      console.log("Ocurrió un error al agregar un proveedor.");
 
       if (axios.isAxiosError(error)) {
         setError(
@@ -61,14 +60,14 @@ export const useProducto = () => {
     }
   }
 
-  async function modificarProducto(
-    productoModificado: UpdateProducto
+  async function modificarProveedor(
+    proveedorModificado: Proveedor
   ) {
     try {
-      await modificarProductoService(productoModificado);
+      await modificarProveedorService(proveedorModificado);
       await cargarDatos();
     } catch (error) {
-      console.log("Ocurrió un error al modificar un producto.");
+      console.log("Ocurrió un error al modificar un proveedor.");
 
       if (axios.isAxiosError(error)) {
         setError(
@@ -82,12 +81,12 @@ export const useProducto = () => {
     }
   }
 
-  async function eliminarProducto(producto: Producto) {
+  async function eliminarProveedor(proveedor: Proveedor) {
     try {
-      await eliminarProductoService(producto);
+      await eliminarProveedorService(proveedor);
       await cargarDatos();
     } catch (error) {
-      console.log("Ocurrió un error al eliminar un producto.");
+      console.log("Ocurrió un error al eliminar un proveedor.");
 
       if (axios.isAxiosError(error)) {
         setError(
@@ -106,11 +105,11 @@ export const useProducto = () => {
   }, []);
 
   return {
-    productos,
+    proveedores,
     isCargandoDatos,
     error,
-    agregarProducto,
-    modificarProducto,
-    eliminarProducto,
+    agregarProveedor,
+    modificarProveedor,
+    eliminarProveedor,
   };
 };

@@ -10,6 +10,7 @@ import UsuarioPage from './modules/Usuario/view/usuarioPage';
 import ClientePage from './modules/Clientes/view/usuarioPage';
 import DepositoPage from './modules/Depositos/view/depositoPage';
 import ProductoPage from './modules/Productos/view/productoPage';
+import ProveedorPage from './modules/Proveedores/view/proveedorPage';
 
 export default function AppRoutes() {
   return (
@@ -26,6 +27,7 @@ export default function AppRoutes() {
         <Route path="/clientes" element={<ClientePage />} />
         <Route path="/depositos" element={<DepositoPage />} />
         <Route path="/productos" element={<ProductoPage />} />
+        <Route path="/proveedor" element={<ProveedorPage />} />
       </Routes>
     </>
     

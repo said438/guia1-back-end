@@ -1,5 +1,5 @@
 import { useState } from "react";
-import type { UpdateProducto } from "../types";
+import type { Proveedor } from "../types";
 import {
   Button,
   Form,
@@ -9,13 +9,13 @@ import {
 } from "antd";
 
 interface Props {
-  onModificarProducto: (
-    productoModificado: UpdateProducto
+  onModificarProveedor: (
+    proveedorModificado: Proveedor
   ) => void;
 }
 
 export function BotonModificar({
-  onModificarProducto,
+  onModificarProveedor,
 }: Props) {
   const [isModalAbierto, setIsModalAbierto] = useState(false);
   const [form] = Form.useForm();
@@ -28,10 +28,10 @@ export function BotonModificar({
     setIsModalAbierto(false);
   }
 
-  async function handleModificarProducto(
-    productoModificado: UpdateProducto
+  async function handleModificarProveedor(
+    proveedorModificado: Proveedor
   ) {
-    await onModificarProducto(productoModificado);
+    await onModificarProveedor(proveedorModificado);
     handleOcultarModal();
   }
 
@@ -42,13 +42,13 @@ export function BotonModificar({
       </Button>
 
       <Modal
-        title="Modificar Producto"
+        title="Modificar Proveedor"
         okText="Modificar"
         cancelText="Cancelar"
         open={isModalAbierto}
         onOk={async () => {
           const camposValidados = await form.validateFields();
-          await handleModificarProducto(camposValidados);
+          await handleModificarProveedor(camposValidados);
         }}
         onCancel={handleOcultarModal}
       >
@@ -77,12 +77,12 @@ export function BotonModificar({
           </Form.Item>
 
           <Form.Item
-            label="Nombre"
-            name="nombre"
+            label="Razón Social"
+            name="razonSocial"
             rules={[
               {
                 required: true,
-                message: "El nombre es obligatorio",
+                message: "La razón social es obligatoria",
               },
             ]}
           >
@@ -90,132 +90,20 @@ export function BotonModificar({
           </Form.Item>
 
           <Form.Item
-            label="Costo Neto"
-            name="costoNeto"
+            label="CUIT"
+            name="cuit"
             rules={[
               {
                 required: true,
-                message: "El costo neto es obligatorio",
+                message: "El CUIT es obligatorio",
               },
               {
-                type: "number",
-                min: 0,
-                max: 10000000,
-                message:
-                  "El costo debe estar entre $0 y $10.000.000",
+                pattern: /^\d{11}$/,
+                message: "El CUIT debe contener exactamente 11 dígitos",
               },
             ]}
-          >
-            <InputNumber
-              min={0}
-              max={10000000}
-              precision={2}
-              style={{ width: "100%" }}
-            />
-          </Form.Item>
-
-          <Form.Item
-            label="Utilidad %"
-            name="utilidadPorcentaje"
-            rules={[
-              {
-                required: true,
-                message: "La utilidad es obligatoria",
-              },
-              {
-                type: "number",
-                min: 0,
-                max: 100,
-                message:
-                  "La utilidad debe estar entre 0% y 100%",
-              },
-            ]}
-          >
-            <InputNumber
-              min={0}
-              max={100}
-              precision={2}
-              style={{ width: "100%" }}
-            />
-          </Form.Item>
-
-          <Form.Item
-            label="Descuento Pago al Contado %"
-            name="descuentoContadoPorcentaje"
-            rules={[
-              {
-                required: true,
-                message: "El descuento es obligatorio",
-              },
-              {
-                type: "number",
-                min: 0,
-                max: 100,
-                message:
-                  "El descuento debe estar entre 0% y 100%",
-              },
-            ]}
-          >
-            <InputNumber
-              min={0}
-              max={100}
-              precision={2}
-              style={{ width: "100%" }}
-            />
-          </Form.Item>
-
-          <Form.Item
-            label="Ruta Imagen en Storage"
-            name="rutaImagenEnStorage"
           >
             <Input />
-          </Form.Item>
-
-          <Form.Item
-            label="Id de Marca"
-            name="marcaId"
-            rules={[
-              {
-                required: true,
-                message: "El id de la marca es obligatorio",
-              },
-              {
-                type: "number",
-                min: 1,
-                message:
-                  "El id de la marca debe ser un número entero mayor que cero",
-              },
-            ]}
-          >
-            <InputNumber
-              min={1}
-              precision={0}
-              style={{ width: "100%" }}
-            />
-          </Form.Item>
-
-          <Form.Item
-            label="Id de Categoría Nivel 2"
-            name="categoriaNivel2Id"
-            rules={[
-              {
-                required: true,
-                message:
-                  "El id de la categoría nivel 2 es obligatorio",
-              },
-              {
-                type: "number",
-                min: 1,
-                message:
-                  "El id de la categoría nivel 2 debe ser un número entero mayor que cero",
-              },
-            ]}
-          >
-            <InputNumber
-              min={1}
-              precision={0}
-              style={{ width: "100%" }}
-            />
           </Form.Item>
         </Form>
       </Modal>
