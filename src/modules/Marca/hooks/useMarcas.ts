@@ -1,18 +1,22 @@
 import { useState, useEffect } from 'react';
-import { crearMarcaService, modificarMarcaService, obtenerMarcasService } from '../Services/marcaService.tsx';
+import { 
+  crearMarcaService,
+  eliminarMarcaService,
+  modificarMarcaService,
+  obtenerMarcasService 
+} from '../Services/marcaService.tsx';
 import type { CreateMarca, Marca } from '../types.ts';
 import axios from 'axios';
 
 export const useMarcas = () => {
   const [marcas, setMarcas] = useState<Marca[]>([]);
-  const [isCargandoDatosDeTabla, setIsCargandoDatosDeTabla] = useState(true);
+  const [isCargandoDatos, setIsCargandoDatos] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   async function cargarMarcas(){
     try {
-      const data = await obtenerMarcasService();
-      setMarcas(data);
-
+      const datos = await obtenerMarcasService();
+      setMarcas(datos);
     } catch (error) {
       console.log('Ocurrió un error al cargar las marcas.');
 
@@ -25,7 +29,7 @@ export const useMarcas = () => {
         setError(error.message)
       }
     } finally {
-      setIsCargandoDatosDeTabla(false);
+      setIsCargandoDatos(false);
     }
   };
 
@@ -72,6 +76,28 @@ export const useMarcas = () => {
     }
   };
 
+  async function eliminarMarca(marcaModificada: Marca){
+    try {
+      //agregando una nueva marca
+      await eliminarMarcaService(marcaModificada);
+      
+      //actualizando la tabla
+      await cargarMarcas();
+
+    } catch (error) {
+      console.log('Ocurrió un error al modificar una marca.');
+
+      if (axios.isAxiosError(error)) {
+        console.log(`Error de Axios: ${error.message}, su codigo es: ${error.code}`);
+        setError(error.response !== undefined ? error.response.data.message : error.message)
+
+      }else if(error instanceof Error){
+        setError(`Imprimiendo el mensaje del error: ${error.message}`);
+        console.log(`Imprimiendo el stack trace del error: ${error.stack}`);
+      }
+    }
+  };
+
   //Se usa useEffect porque la función no se ejecuta como resultado de una interración del usuario
   useEffect(() => {
     cargarMarcas();
@@ -80,9 +106,10 @@ export const useMarcas = () => {
   //Retornamos este objeto para que sus propiedades y metodos puedan ser usados por la vista
   return {
     marcas,
-    isCargandoDatosDeTabla,
+    isCargandoDatos,
     error,
     agregarMarca,
-    modificarMarca
+    modificarMarca,
+    eliminarMarca,
   };
-};
+}

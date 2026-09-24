@@ -1,39 +1,48 @@
 import { useMarcas } from '../hooks/useMarcas';
-import { Button, Flex } from 'antd';
-import Tabla from '../components/Tabla';
-import { BotonAgregarMarca } from '../components/BotonAgregarMarca';
-import { BotonModificarMarca } from '../components/BotonModificarMarca';
+import { Flex } from 'antd';
+import { BotonAgregarMarca } from '../components/BotonAgregar';
+import { BotonModificarMarca } from '../components/BotonModificar';
+import { BotonEliminarMarca } from '../components/BotonEliminar';
+import Tabla from '../../../globalComponents/Tabla';
 
-
-export default function Marcas() {
+export default function MarcasPage() {
   const { 
     marcas,
-    isCargandoDatosDeTabla,
+    isCargandoDatos,
     error,
     agregarMarca,
     modificarMarca,
+    eliminarMarca,
   } = useMarcas();
 
-  if (isCargandoDatosDeTabla) {
-    return <p>Cargando marcas...</p>;
-  }
-
-  if (error) {
-    return <p>Ocurrio un Error: {error}</p>;
-  }
-
-  console.log(useMarcas);
+  const columnas = [
+    {
+        title: 'Id',
+        dataIndex: 'id',
+        key: 'id',
+    },
+    {
+        title: 'Nombre',
+        dataIndex: 'nombre',
+        key: 'nombre',
+    },
+  ];
 
   return (
     <>
       <h1>Marcas</h1>
 
-      <Tabla marcas={marcas}/>
+      <Tabla 
+        datos={marcas}
+        columnas={columnas}
+        cargando={isCargandoDatos}
+        error={error}
+      />
 
       <Flex gap="small" wrap>
         <BotonAgregarMarca onAgregarMarca={agregarMarca}/>
         <BotonModificarMarca onModificarMarca={modificarMarca}/>
-        <Button type="primary">Eliminar</Button>
+        <BotonEliminarMarca onEliminarMarca={eliminarMarca}/>
       </Flex>
     </>
   );

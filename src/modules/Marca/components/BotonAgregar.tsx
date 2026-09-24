@@ -8,33 +8,35 @@ interface Props{
 
 export function BotonAgregarMarca ({onAgregarMarca}: Props){
   //states
-  const [isModalBtnAgregarAbierto, setIsModalBtnAgregarAbierto] = useState(false);
+  const [isModalAbierto, setIsModalAbierto] = useState(false);
   const [form] = Form.useForm();
+
+  const nombreBoton = "Agregar";
 
   //handlers
   function handleMostrarModal(){
-    setIsModalBtnAgregarAbierto(true);
+    setIsModalAbierto(true);
   }
 
   const handleOcultarModal = () => {
-    setIsModalBtnAgregarAbierto(false);
+    setIsModalAbierto(false);
   };
 
-  const handleAgregarMarca = async (nuevaMarca: CreateMarca) => {    
+  const handleAgregarMarca = async (nuevaMarca: CreateMarca) => { 
     await onAgregarMarca(nuevaMarca);
-    setIsModalBtnAgregarAbierto(false);
+    setIsModalAbierto(false);
   };
 
   return (
     <>
-      <Button type="primary" onClick={handleMostrarModal}> Agregar </Button>
+      <Button type="primary" onClick={handleMostrarModal}> {nombreBoton} </Button>
 
       <Modal
-      title="Agregar Marca"
+      title={`${nombreBoton} Marca`}
       closable={{ 'aria-label': 'Custom Close Button' }}
-      okText="Agregar"
+      okText={nombreBoton}
       cancelText="Cancelar"
-      open={isModalBtnAgregarAbierto}
+      open={isModalAbierto}
       onOk={async () => {
         const camposValidados = await form.validateFields();
         await handleAgregarMarca(camposValidados);

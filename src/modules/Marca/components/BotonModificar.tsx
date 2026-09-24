@@ -8,21 +8,21 @@ interface Props{
 
 export function BotonModificarMarca ({onModificarMarca}: Props){
   //states
-  const [isModalDelBotonModificarAbierto, setIsModalDelBotonModificarAbierto] = useState(false);
+  const [isModalAbierto, setIsModalAbierto] = useState(false);
   const [form] = Form.useForm();
 
   //handlers
   function handleMostrarModal(){
-    setIsModalDelBotonModificarAbierto(true);
+    setIsModalAbierto(true);
   }
 
   const handleOcultarModal = () => {
-    setIsModalDelBotonModificarAbierto(false);
+    setIsModalAbierto(false);
   };
 
   const handleModificarMarca = async (marcaModificada: Marca) => {    
     await onModificarMarca(marcaModificada);
-    setIsModalDelBotonModificarAbierto(false);
+    setIsModalAbierto(false);
   };
 
   return (
@@ -34,7 +34,7 @@ export function BotonModificarMarca ({onModificarMarca}: Props){
       closable={{ 'aria-label': 'Custom Close Button' }}
       okText="Modificar"
       cancelText="Cancelar"
-      open={isModalDelBotonModificarAbierto}
+      open={isModalAbierto}
       onOk={async () => {
         const camposValidados = await form.validateFields();
         await handleModificarMarca(camposValidados);
@@ -48,7 +48,7 @@ export function BotonModificarMarca ({onModificarMarca}: Props){
             name="nombre"
 
             //Restricciónes
-            rules={[{required: true, message: 'El nombre es obligatorio',}]}
+            rules={[{required: true, message: 'El nombre es obligatorio'}]}
           >
             <Input />
           </Form.Item>
@@ -58,9 +58,13 @@ export function BotonModificarMarca ({onModificarMarca}: Props){
             name="id"
 
             //Restricciónes
-            rules={[{required: true, message: 'El id es obligatorio',}]}
+            rules={[
+              {required: true, message: 'El id es obligatorio'},
+              {pattern: /^[1-9][0-9]*$/, message: "El id debe ser un numero entero mayor que cero"},
+            ]}
           >
-            <Input />
+          <Input />
+
           </Form.Item>
         </Form>
       </Modal>
