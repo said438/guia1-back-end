@@ -80,9 +80,6 @@ export function BotonAgregar({ onAgregarProducto }: Props) {
             ]}
           >
             <InputNumber
-              min={0}
-              max={10000000}
-              precision={2}
               style={{ width: "100%" }}
             />
           </Form.Item>
@@ -105,9 +102,6 @@ export function BotonAgregar({ onAgregarProducto }: Props) {
             ]}
           >
             <InputNumber
-              min={0}
-              max={100}
-              precision={2}
               style={{ width: "100%" }}
             />
           </Form.Item>
@@ -130,9 +124,6 @@ export function BotonAgregar({ onAgregarProducto }: Props) {
             ]}
           >
             <InputNumber
-              min={0}
-              max={100}
-              precision={2}
               style={{ width: "100%" }}
             />
           </Form.Item>
@@ -161,8 +152,6 @@ export function BotonAgregar({ onAgregarProducto }: Props) {
             ]}
           >
             <InputNumber
-              min={1}
-              precision={0}
               style={{ width: "100%" }}
             />
           </Form.Item>
@@ -185,8 +174,6 @@ export function BotonAgregar({ onAgregarProducto }: Props) {
             ]}
           >
             <InputNumber
-              min={1}
-              precision={0}
               style={{ width: "100%" }}
             />
           </Form.Item>

@@ -9,6 +9,8 @@ const URL_BASE = "/producto";
 
 export async function obtenerProductosService(): Promise<Producto[]> {
   const respuesta = await api.get<Producto[]>(URL_BASE);
+  console.log(respuesta.data);
+  
   return respuesta.data;
 }
 
